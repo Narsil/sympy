@@ -21,7 +21,7 @@ from sympy.core.function import Derivative, Function, FunctionClass, Lambda,\
         WildFunction
 from sympy.core.sets import Interval
 from sympy.core.multidimensional import vectorize
-from sympy.core.cache import Memoizer
+#from sympy.core.cache import Memoizer
 #from sympy.core.ast_parser import SymPyParser, SymPyTransformer
 
 from sympy.core.compatibility import callable
@@ -132,10 +132,10 @@ def test_core_multidimensional():
     for c in (vectorize, vectorize(0)):
         check(c)
 
-@XFAIL
-def test_core_cache():
-    for c in (Memoizer, Memoizer()):
-        check(c)
+#@XFAIL
+#def test_core_cache():
+#    for c in (Memoizer, Memoizer()):
+#        check(c)
 
 # This doesn't have to be pickable.
 #@XFAIL
