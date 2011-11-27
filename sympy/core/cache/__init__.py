@@ -77,15 +77,25 @@ def is_immutable(obj):
 def repr(obj):
     return '%s_%s' % (hex(id(obj)), hex(hash(obj)))
 
-
 def make_key(func, args, kwargs):
-    keys = kwargs.keys()
-    keys.sort()
-    string = "%s_%s_%s" % (
-            '%s.%s.%s' % (func.__module__, func.__name__, repr(func)),
-            [repr(arg) for arg in args],
-            {key: repr(kwargs[key]) for key in keys})
-    return string
+    """
+    Key is not a string
+    """
+    if kwargs:
+        keys = kwargs.keys()
+        keys.sort()
+        items = [(k, kwargs[k]) for k in keys]
+        k = (func,) + args + tuple(items)
+    else:
+        k = (func,) + args
+    k = k + tuple(map(type, k))
+    return k
+
+    # string = "%s_%s_%s" % (
+    #         '%s.%s.%s' % (func.__module__, func.__name__, repr(func)),
+    #         [repr(arg) for arg in args],
+    #         {key: repr(kwargs[key]) for key in keys})
+    # return string
     #return hex(hash((func, args, frozenset(sorted(kwargs.items())))))
 
 
@@ -116,11 +126,14 @@ def cacheit(func):
         Assemble the args and kwargs to compute the hash.
         """
         key = make_key(func, args, kwargs)
-        cached_value = cache.get(key, 'default_key')
-        if cached_value != 'default_key':
-            return cached_value
+        cache_key = hex(hash(key))
+        cached_values_dict = cache.get(cache_key, {})
+        if cached_values_dict and key in cached_values_dict:
+            r = cached_values_dict[key]
+            return r
         r = func(*args, **kwargs)
-        cache.set(key, r)
+        cached_values_dict[key] = r
+        cache.set(cache_key, cached_values_dict)
         return r
     return wrapper
 
