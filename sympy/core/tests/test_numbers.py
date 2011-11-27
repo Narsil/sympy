@@ -3,33 +3,33 @@ from sympy import (Rational, Symbol, Float, I, sqrt, oo, nan, pi, E, Integer,
                    Number, zoo, log, Mul, Pow)
 from sympy.core.power import integer_nthroot
 
-from sympy.core.numbers import igcd, ilcm, igcdex, seterr, _intcache
+from sympy.core.numbers import igcd, ilcm, igcdex, seterr
 from sympy.utilities.pytest import raises
 from sympy import mpmath
 
-def test_integers_cache():
-    python_int = 2**65 + 3175259
-
-    while python_int in _intcache or hash(python_int) in _intcache:
-        python_int += 1
-
-    sympy_int = Integer(python_int)
-
-    assert python_int in _intcache
-    assert hash(python_int) not in _intcache
-    assert sympy_int not in _intcache
-
-    sympy_int_int = Integer(sympy_int)
-
-    assert python_int in _intcache
-    assert hash(python_int) not in _intcache
-    assert sympy_int_int not in _intcache
-
-    sympy_hash_int = Integer(hash(python_int))
-
-    assert python_int in _intcache
-    assert hash(python_int) in _intcache
-    assert sympy_hash_int not in _intcache
+# def test_integers_cache():
+#     python_int = 2**65 + 3175259
+# 
+#     while python_int in _intcache or hash(python_int) in _intcache:
+#         python_int += 1
+# 
+#     sympy_int = Integer(python_int)
+# 
+#     assert python_int in _intcache
+#     assert hash(python_int) not in _intcache
+#     assert sympy_int not in _intcache
+# 
+#     sympy_int_int = Integer(sympy_int)
+# 
+#     assert python_int in _intcache
+#     assert hash(python_int) not in _intcache
+#     assert sympy_int_int not in _intcache
+# 
+#     sympy_hash_int = Integer(hash(python_int))
+# 
+#     assert python_int in _intcache
+#     assert hash(python_int) in _intcache
+#     assert sympy_hash_int not in _intcache
 
 def test_seterr():
     seterr(divide = True)

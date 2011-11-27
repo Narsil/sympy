@@ -355,7 +355,7 @@ class Basic(object):
             except SympifyError:
                 return False    # sympy != other
 
-            if type(self) is not type(other):
+            if type(self) != type(other):
                 return False
 
         # type(self) == type(other)

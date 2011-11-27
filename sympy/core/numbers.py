@@ -989,25 +989,38 @@ class Integer(Rational):
     def _mpmath_(self, prec, rnd):
         return mpmath.make_mpf(self._as_mpf_val(prec))
 
-    # TODO caching with decorator, but not to degrade performance
-    @int_trace
+    @cacheit
     def __new__(cls, i):
         ival = int(i)
+        if ival == 0:
+            obj = S.Zero
+        elif ival == 1:
+            obj = S.One
+        elif ival == -1:
+            obj = S.NegativeOne
+        else:
+            obj = Expr.__new__(cls)
+            obj.p = ival
+        return obj
+    # # TODO caching with decorator, but not to degrade performance
+    # @int_trace
+    # def __new__(cls, i):
+    #     ival = int(i)
 
-        try:
-            return _intcache[ival]
-        except KeyError:
-            # We only work with well-behaved integer types. This converts, for
-            # example, numpy.int32 instances.
-            if ival == 0: obj = S.Zero
-            elif ival == 1: obj = S.One
-            elif ival == -1: obj = S.NegativeOne
-            else:
-                obj = Expr.__new__(cls)
-                obj.p = ival
+    #     try:
+    #         return _intcache[ival]
+    #     except KeyError:
+    #         # We only work with well-behaved integer types. This converts, for
+    #         # example, numpy.int32 instances.
+    #         if ival == 0: obj = S.Zero
+    #         elif ival == 1: obj = S.One
+    #         elif ival == -1: obj = S.NegativeOne
+    #         else:
+    #             obj = Expr.__new__(cls)
+    #             obj.p = ival
 
-            _intcache[ival] = obj
-            return obj
+    #         _intcache[ival] = obj
+    #         return obj
 
     def __getnewargs__(self):
         return (self.p,)
