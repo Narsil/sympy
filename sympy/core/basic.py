@@ -20,7 +20,7 @@ def _new_Basic(cls, args, state):
     except TypeError:
         # Some objects like Numbers do not accept evaluate keyword argument.
         obj = cls.__new__(cls, *args)
-    obj.__setstate__(state)
+    # obj.__setstate__(state)
     return obj
 
 class Basic(object):
