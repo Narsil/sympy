@@ -2072,7 +2072,11 @@ def _logcombine(expr, force=False):
                         and not getattr(i.extract_multiplicatively(loglargs),\
                         'is_real')==False):
 
-                    coeflogs += _logcombine(i, force)
+                    if len(largs) == 1:
+                        otherargs = [a for a in i.args if a != log(largs[0])]
+                        argslist *= Pow(largs[0], Mul(*otherargs))
+                    else:
+                        coeflogs += _logcombine(i, force)
                 else:
                     notlogs += i
             elif i.has(log):
