@@ -53,8 +53,6 @@ _assume_rules = FactRules([
 
     # XXX do we need this ?
     'finite     ->  bounded',       # XXX do we need this?
-    'finite     ->  !zero',         # XXX wrong?
-    'infinitesimal ->  !finite',    # XXX is this ok?
 ])
 
 _assume_defined = _assume_rules.defined_facts.copy()

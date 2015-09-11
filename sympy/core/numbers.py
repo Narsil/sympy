@@ -1352,7 +1352,7 @@ class Zero(IntegerConstant):
     q = 1
     is_positive = False
     is_negative = False
-    is_finite = False
+    is_finite = True
     is_zero = True
     is_prime = False
     is_composite = False
