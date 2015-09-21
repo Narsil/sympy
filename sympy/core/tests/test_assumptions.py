@@ -27,7 +27,7 @@ def test_zero():
     assert z.is_odd == False
     assert z.is_bounded == True
     assert z.is_unbounded == False
-    assert z.is_finite == False
+    assert z.is_finite == True
     assert z.is_infinitesimal == True
     assert z.is_comparable == True
     assert z.is_prime == False
@@ -52,7 +52,7 @@ def test_one():
     assert z.is_bounded == True
     assert z.is_unbounded == False
     assert z.is_finite == True
-    assert z.is_infinitesimal == False
+    assert z.is_infinitesimal == None
     assert z.is_comparable == True
     assert z.is_prime == True
     assert z.is_composite == False
@@ -76,7 +76,7 @@ def test_negativeone():
     assert z.is_bounded == True
     assert z.is_unbounded == False
     assert z.is_finite == True
-    assert z.is_infinitesimal == False
+    assert z.is_infinitesimal == None
     assert z.is_comparable == True
     assert z.is_prime == False
     assert z.is_composite == False
@@ -175,7 +175,7 @@ def test_pos_rational():
     assert r.is_bounded == True
     assert r.is_unbounded == False
     assert r.is_finite == True
-    assert r.is_infinitesimal == False
+    assert r.is_infinitesimal == None
     assert r.is_comparable == True
     assert r.is_prime == False
     assert r.is_composite == False
@@ -237,7 +237,7 @@ def test_pi():
     assert z.is_bounded == True
     assert z.is_unbounded == False
     assert z.is_finite == True
-    assert z.is_infinitesimal == False
+    assert z.is_infinitesimal == None
     assert z.is_comparable == True
     assert z.is_prime == False
     assert z.is_composite == False
@@ -261,7 +261,7 @@ def test_E():
     assert z.is_bounded == True
     assert z.is_unbounded == False
     assert z.is_finite == True
-    assert z.is_infinitesimal == False
+    assert z.is_infinitesimal == None
     assert z.is_comparable == True
     assert z.is_prime == False
     assert z.is_composite == False
@@ -285,7 +285,7 @@ def test_I():
     assert z.is_bounded == True
     assert z.is_unbounded == False
     assert z.is_finite == True
-    assert z.is_infinitesimal == False
+    assert z.is_infinitesimal == None
     assert z.is_comparable == None
     assert z.is_prime == False
     assert z.is_composite == False

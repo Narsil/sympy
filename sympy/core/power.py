@@ -215,6 +215,16 @@ class Pow(Expr):
         if not (self.base.is_integer and self.exp.is_nonnegative): return
         return self.base.is_odd
 
+    def _eval_is_rational(self):
+        try:
+            expr = self.simplify()
+        except:
+            expr = self
+        if isinstance(expr, Pow):
+            return expr.base.is_rational and expr.exp.is_integer
+        else:
+            return expr.is_rational
+
     def _eval_is_bounded(self):
         if self.exp.is_negative:
             if self.base.is_infinitesimal:
