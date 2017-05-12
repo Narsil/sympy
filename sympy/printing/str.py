@@ -536,6 +536,7 @@ def sstr(expr, **settings):
     """
 
     p = StrPrinter(settings)
+    p._str = unicode
     s = p.doprint(expr)
 
     return s
