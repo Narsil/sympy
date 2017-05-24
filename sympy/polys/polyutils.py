@@ -36,7 +36,7 @@ def _sort_gens(gens, **args):
             gens_order[gen] = i+1
 
     def order_key(gen):
-        gen = str(gen)
+        gen = unicode(gen)
 
         if wrt is not None:
             try:
