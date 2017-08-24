@@ -2653,7 +2653,7 @@ def __remove_linear_redundancies(expr, Cs):
     Cs = [i for i in Cs if cnts[i] > 0]
 
     def _linear(expr):
-        if expr.func is Add:
+        if issubclass(expr.func, Add):
             xs = [i for i in Cs if expr.count(i)==cnts[i] \
                 and 0 == expr.diff(i, 2)]
             d = {}

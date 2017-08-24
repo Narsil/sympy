@@ -257,7 +257,7 @@ def _minpoly_op_algebraic_element(op, ex1, ex2, x, dom, mp1=None, mp2=None):
     else:
         mp2 = mp2.subs({x: y})
 
-    if op is Add:
+    if issubclass(op, Add):
         # mp1a = mp1.subs({x: x - y})
         if dom == QQ:
             R, X = ring('X', QQ)
@@ -268,12 +268,12 @@ def _minpoly_op_algebraic_element(op, ex1, ex2, x, dom, mp1=None, mp2=None):
             r = p1.compose(p2)
             mp1a = r.as_expr()
 
-    elif op is Mul:
+    elif issubclass(op, Mul):
         mp1a = _muly(mp1, x, y)
     else:
         raise NotImplementedError('option not available')
 
-    if op is Mul or dom != QQ:
+    if issubclass(op, Mul) or dom != QQ:
         r = resultant(mp1a, mp2, gens=[y, x])
     else:
         r = rs_compose_add(p1, p2)
@@ -281,7 +281,7 @@ def _minpoly_op_algebraic_element(op, ex1, ex2, x, dom, mp1=None, mp2=None):
 
     deg1 = degree(mp1, x)
     deg2 = degree(mp2, y)
-    if op is Mul and deg1 == 1 or deg2 == 1:
+    if issubclass(op, Mul) and deg1 == 1 or deg2 == 1:
         # if deg1 = 1, then mp1 = x - a; mp1a = x - y - a;
         # r = mp2(x - a), so that `r` is irreducible
         return r

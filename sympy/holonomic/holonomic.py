@@ -2430,15 +2430,15 @@ def expr_to_holonomic(func, x=None, x0=0, y0=None, lenics=None, domain=None, ini
     from sympy.core import Add, Mul, Pow
     sol = expr_to_holonomic(args[0], x=x, initcond=False, domain=domain)
 
-    if f is Add:
+    if issubclass(f, Add):
         for i in range(1, len(args)):
             sol += expr_to_holonomic(args[i], x=x, initcond=False, domain=domain)
 
-    elif f is Mul:
+    elif issubclass(f, Mul):
         for i in range(1, len(args)):
             sol *= expr_to_holonomic(args[i], x=x, initcond=False, domain=domain)
 
-    elif f is Pow:
+    elif issubclass(f, Pow):
         sol = sol**args[1]
     sol.x0 = x0
     if not sol:

@@ -122,7 +122,7 @@ def refine_Pow(expr, assumptions):
             if ask(Q.odd(expr.exp), assumptions):
                 return sign(expr.base) * abs(expr.base) ** expr.exp
         if isinstance(expr.exp, Rational):
-            if type(expr.base) is Pow:
+            if issubclass(type(expr.base), Pow):
                 return abs(expr.base.base) ** (expr.base.exp * expr.exp)
 
         if expr.base is S.NegativeOne:
