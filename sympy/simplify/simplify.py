@@ -530,6 +530,10 @@ def simplify(expr, ratio=1.7, measure=count_ops, fu=False):
         return expr.func(*[simplify(x, ratio=ratio, measure=measure, fu=fu)
                          for x in expr.args])
 
+    if expr.has(Pow, Mul):
+        expr = expr.__class__(*[rewrite_neg_pows(a) for a in expr.args])
+        expr = rewrite_neg_pows(expr)
+
     # TODO: Apply different strategies, considering expression pattern:
     # is it a purely rational function? Is there any trigonometric function?...
     # See also https://github.com/sympy/sympy/pull/185.
@@ -1400,3 +1404,17 @@ def clear_coefficients(expr, rhs=S.Zero):
         expr = -expr
         rhs = -rhs
     return expr, rhs
+
+def rewrite_neg_pows(expr):
+    if isinstance(expr, Pow) and len(expr.args) == 2 and\
+            expr.args[0].is_integer and\
+            isinstance(expr.args[1], Mul) and len(expr.args[1].args) == 2 and\
+            expr.args[1].args[0] == S.NegativeOne:
+        # p^(-n) -> (1/p)^n
+        p = expr.args[0]
+        n = expr.args[1].args[1]
+        return expr.__class__(Rational(1, p), n)
+    elif expr.args:
+        return expr.__class__(*[rewrite_neg_pows(a) for a in expr.args])
+
+    return expr

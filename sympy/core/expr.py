@@ -72,7 +72,7 @@ class Expr(Basic, EvalfMixin):
         if expr.is_Dummy:
             args = (expr.sort_key(),)
         elif expr.is_Atom:
-            args = (str(expr),)
+            args = (unicode(expr),)
         else:
             if expr.is_Add:
                 args = expr.as_ordered_terms(order=order)
