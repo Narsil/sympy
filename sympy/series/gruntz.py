@@ -265,6 +265,9 @@ def mrv(e, x):
         if b == 1:
             return SubsSet(), b
         if e.has(x):
+            if not e.is_imaginary and not b.is_imaginary and abs(b) < S.One:
+                from sympy import re
+                return mrv(exp(e * re(log(b))), x)
             return mrv(exp(e * log(b)), x)
         else:
             s, expr = mrv(b, x)
