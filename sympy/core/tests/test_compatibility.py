@@ -67,3 +67,7 @@ def test_ordered():
     assert list(ordered(l, warn=True)) == [[1], [1], [2]]
     raises(ValueError, lambda: list(ordered(['a', 'ab'], keys=[lambda x: x[0]],
         default=False, warn=True)))
+
+    from sympy import Pow, Rational
+    l = [Pow(3, Rational(1, 2)), -Pow(3, Rational(1, 2))]
+    assert list(ordered(tuple(l), warn=True)) == [-Pow(3, Rational(1, 2)), Pow(3, Rational(1, 2))]
