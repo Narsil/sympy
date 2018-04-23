@@ -13,6 +13,7 @@ from sympy.core import (S, Add, Mul, Pow, Expr,
 from sympy.core.compatibility import range
 
 import re
+import six
 
 _gens_order = {
     'a': 301, 'b': 302, 'c': 303, 'd': 304,
@@ -75,7 +76,7 @@ def _sort_gens(gens, **args):
             gens_order[gen] = i + 1
 
     def order_key(gen):
-        gen = unicode(gen)
+        gen = six.text_type(gen)
 
         if wrt is not None:
             try:

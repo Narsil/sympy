@@ -9,6 +9,7 @@ from .sympify import _sympify, sympify, SympifyError
 from .compatibility import (iterable, Iterator, ordered,
     string_types, with_metaclass, zip_longest, range)
 from .singleton import S
+import six
 
 from inspect import getmro
 
@@ -1702,7 +1703,7 @@ class Atom(Basic):
 
     @cacheit
     def sort_key(self, order=None):
-        return self.class_key(), (1, (unicode(self),)), S.One.sort_key(), S.One
+        return self.class_key(), (1, (six.text_type(self),)), S.One.sort_key(), S.One
 
     def _eval_simplify(self, ratio, measure):
         return self

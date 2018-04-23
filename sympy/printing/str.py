@@ -13,6 +13,7 @@ import mpmath.libmp as mlib
 from mpmath.libmp import prec_to_dps
 
 from sympy.utilities import default_sort_key
+import six
 
 
 class StrPrinter(Printer):
@@ -789,7 +790,7 @@ def sstr(expr, **settings):
     """
 
     p = StrPrinter(settings)
-    p._str = unicode
+    p._str = six.text_type
     s = p.doprint(expr)
 
     return s

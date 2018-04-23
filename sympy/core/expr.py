@@ -10,6 +10,7 @@ from .compatibility import reduce, as_int, default_sort_key, range
 from mpmath.libmp import mpf_log, prec_to_dps
 
 from collections import defaultdict
+import six
 
 class Expr(Basic, EvalfMixin):
     """
@@ -72,7 +73,7 @@ class Expr(Basic, EvalfMixin):
         if expr.is_Dummy:
             args = (expr.sort_key(),)
         elif expr.is_Atom:
-            args = (unicode(expr),)
+            args = (six.text_type(expr),)
         else:
             if expr.is_Add:
                 args = expr.as_ordered_terms(order=order)
