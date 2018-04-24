@@ -68,7 +68,7 @@ if PY3:
     class_types = type,
     integer_types = (int,)
     string_types = (str,)
-    long = int
+    long = lambda x, b: int(x[:-1], b) if isinstance(x, str) and x[-1] == 'L' else int(x, b)
     int_info = sys.int_info
 
     # String / unicode compatibility
